@@ -398,7 +398,10 @@ void TestAction::TellMaster(const std::string& msg)
 
 void TestAction::LogToConsole(const std::string& msg)
 {
-    sLog.outString(msg.c_str());
+    // Pocket Realm patch: pass as an explicit "%s" argument rather than a raw
+    // format string. The Android NDK enables -Werror=format-security by default,
+    // which rejects non-literal format strings. Behavior is unchanged.
+    sLog.outString("%s", msg.c_str());
 }
 
 void TestAction::LogToFile(const std::string& msg)
